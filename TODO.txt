@@ -1,0 +1,17 @@
+Logger
+express-http-context
+request-id
+request-logger (and response)
+
+auth (passport?)
+
+socket io
+
+database
+seed
+
+react
+staticGzip
+
+docker
+npm scripts
