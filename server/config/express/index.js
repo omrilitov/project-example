@@ -7,9 +7,9 @@ const compression = require('compression');
 const jsonErrorHandler = require('express-json-error-handler').default;
 const httpContext = require('express-http-context');
 const addRequestId = require('express-request-id');
-const responseTime = require('response-time')
-const requestLogger = require('./request-logger')
+const responseTime = require('response-time');
 const logger = require('../../common/logger');
+const requestLogger = require('./request-logger');
 const routes = require('./routes');
 
 module.exports = () => {
@@ -29,7 +29,9 @@ module.exports = () => {
     next();
   });
   app.use(requestLogger());
-  app.use(responseTime((req, res, time) => req.responseTime = time));
+  app.use(responseTime((req, res, time) => {
+    req.responseTime = time;
+  }));
 
   routes(app);
 

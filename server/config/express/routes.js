@@ -1,7 +1,11 @@
 const {join} = require('path');
 const createError = require('http-errors');
 
+const thingsRoute = require('../../api/things');
+
 module.exports = app => {
+  app.use('/api/things', thingsRoute);
+
   app.route('/:url(api|auth)/*')
     .get((req, res, next) => {
       next(createError(404));
