@@ -3,8 +3,12 @@ const createError = require('http-errors');
 
 const userRoute = require('../../api/user');
 
+const authRoute = require('../../auth');
+
 module.exports = app => {
   app.use('/api/users', userRoute);
+
+  app.use('/auth', authRoute);
 
   app.route('/:url(api|auth)/*')
     .get((req, res, next) => {

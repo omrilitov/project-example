@@ -4,6 +4,7 @@ const {urlencoded, json} = require('body-parser');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const passport = require('passport');
 const jsonErrorHandler = require('express-json-error-handler').default;
 const httpContext = require('express-http-context');
 const addRequestId = require('express-request-id');
@@ -21,6 +22,7 @@ module.exports = () => {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(compression());
+  app.use(passport.initialize());
   app.use(httpContext.middleware);
   app.use(addRequestId());
   app.use((req, res, next) => {

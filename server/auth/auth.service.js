@@ -5,16 +5,17 @@ const createError = require('http-errors');
 const User = require('../api/user/model');
 
 const secret = process.env.SECRET;
+
 const validateJwt = promisify(expressJwt({
   secret
 }));
 
-exports.isAuthenticated = () => {
+exports.authenticate = () => {
   return [validateJwt, async req => {
     const user = await User.findById(req.user._id);
 
     if (!user) {
-      return Promise.reject(createError(401));
+      throw createError(401);
     }
 
     req.user = user;
