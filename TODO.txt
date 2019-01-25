@@ -1,6 +1,3 @@
-Logger
-express-http-context
-request-id
 request-logger (and response)
 
 auth (passport?)
