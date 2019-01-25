@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const jsonErrorHandler = require('express-json-error-handler').default;
 const httpContext = require('express-http-context');
-const uuidv4 = require('uuid/v4');
+const addRequestId = require('express-request-id');
+const responseTime = require('response-time')
+const requestLogger = require('./request-logger')
 const logger = require('../../common/logger');
 const routes = require('./routes');
 
@@ -20,14 +22,14 @@ module.exports = () => {
   app.use(cookieParser());
   app.use(compression());
   app.use(httpContext.middleware);
+  app.use(addRequestId());
   app.use((req, res, next) => {
-    const uuid = uuidv4();
-
-    res.setHeader('X-Request-Id', uuid);
-    logger.addMeta('requestId', uuid);
+    logger.addMeta('requestId', req.id);
     logger.addMeta('requestUrl', req.url);
     next();
   });
+  app.use(requestLogger());
+  app.use(responseTime((req, res, time) => req.responseTime = time));
 
   routes(app);
 
