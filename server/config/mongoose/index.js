@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const logger = require('../../common/logger');
+const logger = require('pino-context')();
 
 const timeoutP = mili => new Promise(resolve => setTimeout(resolve, mili));
 const handleError = err => {

@@ -1,7 +1,7 @@
 require('dotenv-extended/config');
+const logger = require('pino-context')();
 const createApp = require('./config/express');
 const connect = require('./config/mongoose');
-const logger = require('./common/logger');
 
 const app = createApp();
 const port = process.env.PORT;

@@ -1,6 +1,6 @@
 const onHeaders = require('on-headers');
 const _ = require('lodash');
-const logger = require('../../common/logger');
+const logger = require('pino-context')();
 
 module.exports = (getOptions = _.noop) => (req, res, next) => {
   const {excludes = []} = getOptions(req) || {};

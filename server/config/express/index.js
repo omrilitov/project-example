@@ -7,12 +7,15 @@ const compression = require('compression');
 const passport = require('passport');
 const jsonErrorHandler = require('express-json-error-handler').default;
 const httpContext = require('express-http-context');
+const als = require('async-local-storage');
 const addRequestId = require('express-request-id');
 const responseTime = require('response-time');
-const logger = require('../../common/logger');
+const {addContext} = require('pino-context');
+const logger = require('pino-context')();
 const requestLogger = require('./request-logger');
 const routes = require('./routes');
 
+als.enable();
 module.exports = () => {
   const app = express();
 
@@ -26,8 +29,9 @@ module.exports = () => {
   app.use(httpContext.middleware);
   app.use(addRequestId());
   app.use((req, res, next) => {
-    logger.addMeta('requestId', req.id);
-    logger.addMeta('requestUrl', req.url);
+    als.scope();
+    addContext('requestId', req.id);
+    addContext('requestUrl', req.url);
     next();
   });
   app.use(requestLogger());
