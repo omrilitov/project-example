@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const passport = require('passport');
 const jsonErrorHandler = require('express-json-error-handler').default;
-const httpContext = require('express-http-context');
 const als = require('async-local-storage');
 const addRequestId = require('express-request-id');
 const responseTime = require('response-time');
@@ -26,7 +25,6 @@ module.exports = () => {
   app.use(cookieParser());
   app.use(compression());
   app.use(passport.initialize());
-  app.use(httpContext.middleware);
   app.use(addRequestId());
   app.use((req, res, next) => {
     als.scope();
