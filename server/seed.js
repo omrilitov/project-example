@@ -1,8 +1,8 @@
 require('dotenv-extended/config');
 const mongoose = require('mongoose');
+const logger = require('pino-context')();
 const connect = require('./config/mongoose');
 const User = require('./api/user/model');
-const logger = require('pino-context')();
 
 const seedUsers = async () => {
   await User.deleteMany({});
