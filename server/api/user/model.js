@@ -27,12 +27,6 @@ UserSchema
   });
 
 UserSchema
-  .virtual('name.full')
-  .get(function () {
-    return `${this.name.first} ${this.name.last}`;
-  });
-
-UserSchema
   .virtual('password')
   .set(function (password) {
     this._password = password;
@@ -40,7 +34,6 @@ UserSchema
 
 UserSchema
   .pre('save', async function () {
-    console.log(this._password);
     if (this._password) {
       await this.setPassword(this._password);
     }
