@@ -8,10 +8,9 @@ const passport = require('passport');
 const jsonErrorHandler = require('express-json-error-handler').default;
 const als = require('async-local-storage');
 const addRequestId = require('express-request-id');
-const responseTime = require('response-time');
 const {addContext} = require('pino-context');
 const logger = require('pino-context')();
-const requestLogger = require('./request-logger');
+const audit = require('express-requests-logger');
 const routes = require('./routes');
 
 als.enable();
@@ -32,9 +31,15 @@ module.exports = () => {
     addContext('requestUrl', req.url);
     next();
   });
-  app.use(requestLogger());
-  app.use(responseTime((req, res, time) => {
-    req.responseTime = time;
+  app.use(audit({
+    logger,
+    request: {
+      maskBody: ['password'],
+      excludeHeaders: ['authorization']
+    },
+    response: {
+      maskBody: ['token']
+    }
   }));
 
   routes(app);
