@@ -1,4 +1,6 @@
-auth (passport?)
+auth - custom error handling with passport
+requestLogger - package?
+authenticate() - roles
 
 socket io
 
