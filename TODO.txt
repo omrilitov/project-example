@@ -1,14 +1,8 @@
+server
 auth - custom error handling with passport
-requestLogger - package?
 authenticate() - roles
-
+database - fix connections
 socket io
 
-database
-seed
-
-react
-staticGzip
-
-docker
-npm scripts
+client
+redux-auth + login + shell/me
