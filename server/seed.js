@@ -17,6 +17,7 @@ connect()
   .then(async () => {
     await seedUsers();
     mongoose.connection.close();
+    logger.info('Seed is successful');
     process.exit(0);
   })
   .catch(error => {
