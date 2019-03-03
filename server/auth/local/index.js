@@ -8,18 +8,15 @@ passport.use(User.createStrategy());
 const router = new Router();
 
 router.post('/', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    const error = err || info;
+  passport.authenticate('local', (err, user, info, status) => {
+    if (err) {
+      return next(err);
+    }
 
-    if (error) {
-      const errMap = {
-        'Missing credentials': 400,
-        'Password or username is incorrect': 401
-      };
+    if (info) {
+      info.status = status || 401;
 
-      error.status = errMap[error.message];
-
-      return next(error);
+      return next(info);
     }
 
     res.json({token: signToken(user._id)});
