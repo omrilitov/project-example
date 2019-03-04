@@ -1,10 +1,52 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'connected-react-router';
+import promiseMiddleware, {resolve, reject} from 'redux-simple-promise';
+import axios from 'axios';
+import {multiClientMiddleware} from 'redux-axios-middleware';
 import createRootReducer from './reducer';
+
+const suffixes = {
+  successSuffix: resolve(''),
+  errorSuffix: reject('')
+};
+
+export const createAxiosConfig = () => ({
+  default: {
+    client: axios.create({
+      baseURL: '/api',
+      responseType: 'json'
+    }),
+    options: {
+      ...suffixes,
+      interceptors: {
+        request: [
+          ({getState}, config) => {
+            const {auth: {token}} = getState();
+
+            if (token) {
+              config.headers.Authorization = `Bearer ${token}`;
+            }
+
+            return config;
+          }
+        ]
+      }
+    }
+  },
+  auth: {
+    client: axios.create({
+      baseURL: '/auth',
+      responseType: 'json'
+    }),
+    options: suffixes
+  }
+});
 
 export default (history, initialState = {}) => {
   const params = [
     applyMiddleware(
+      promiseMiddleware(),
+      multiClientMiddleware(createAxiosConfig()),
       routerMiddleware(history)
     )
   ];
