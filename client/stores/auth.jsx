@@ -1,45 +1,52 @@
-import {observable, action, computed} from "mobx";
-import axios from "axios";
+import {observable, action, computed, runInAction, decorate} from "mobx";
 
 export default class AuthStore {
-  @observable user;
-  @observable token;
+  user;
+  rest;
+
+  constructor(rest) {
+    this.rest = rest;
+  }
 
   @computed get isLoggedIn() {
-    return this.token && this.user;
+    return !!this.user;
   }
 
   @action.bound
   logout() {
     localStorage.removeItem('token');
-    this.token = null;
     this.user = null;
   }
 
   @action.bound
   async localLogin({email, password}) {
-    return axios.post('/auth/local', {
-      email,
-      password
-    })
-    .then(({data}) => {
+    try {
+      const {data} = await this.rest.auth.post('/local', {
+        email,
+        password
+      });
+
       localStorage.setItem('token', data.token);
-      this.token = data.token;
 
       return this.loadUser();
-    })
-    .catch(err => {
+    } catch (e) {
       this.logout();
-    });
+    }
   }
 
   async loadUser() {
-    return axios.get('/api/users/me')
-    .then(({data}) => {
-      this.user = data;
-    })
-    .catch(err => {
+    try {
+      const {data} = await this.rest.client.get('/users/me');
+
+      runInAction(() => {
+        this.user = data;
+      });
+    } catch (e) {
       this.logout();
-    })
+    }
   }
 }
+
+decorate(AuthStore, {
+  user: observable
+});
