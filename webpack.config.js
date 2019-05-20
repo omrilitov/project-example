@@ -18,7 +18,7 @@ module.exports = env => {
 
   return {
     entry: {
-      main: './client/index.js'
+      main: './client/index.jsx'
     },
     output: {
       path: resolve(__dirname, './dist/client'),
@@ -36,7 +36,7 @@ module.exports = env => {
           ]
         },
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           use: ['babel-loader'],
           exclude: /node_modules/
         },
@@ -52,6 +52,9 @@ module.exports = env => {
           ]
         }
       ]
+    },
+    resolve: {
+      extensions: ['.js', '.jsx']
     },
     plugins,
     devServer: {
