@@ -3,6 +3,7 @@ const {resolve} = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = env => {
+  const isProduction = env === 'production';
   const plugins = [
     new HtmlWebpackPlugin({
       template: './client/index.html'
@@ -11,14 +12,18 @@ module.exports = env => {
 
   let devtool = 'eval-source-map';
 
-  if (env === 'production') {
+  if (isProduction) {
     process.env.NODE_ENV = env;
     devtool = 'source-map';
   }
 
   return {
     entry: {
-      main: './client/index.jsx'
+      main: [
+        'babel-polyfill',
+        'react-hot-loader/patch',
+        './client/index.jsx'
+      ]
     },
     output: {
       path: resolve(__dirname, './dist/client'),
@@ -54,6 +59,9 @@ module.exports = env => {
       ]
     },
     resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom'
+      },
       extensions: ['.js', '.jsx']
     },
     plugins,

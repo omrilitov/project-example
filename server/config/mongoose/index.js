@@ -19,6 +19,7 @@ const connect = () => {
 module.exports = () => {
   mongoose.Promise = Promise;
   mongoose.set('bufferCommands', false);
+  mongoose.set('useCreateIndex', true);
 
   mongoose.connection.once('open', () => {
     logger.info('Connected to database');
