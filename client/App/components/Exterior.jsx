@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 
-const Exterior = (props) => {
+const Exterior = props => {
   const {
     children,
     routing,
@@ -10,7 +10,7 @@ const Exterior = (props) => {
 
   if (auth.user || auth.loggingIn) {
     routing.push('/');
-    return (<div/>);
+    return (<div />);
   }
 
   return (
@@ -18,6 +18,6 @@ const Exterior = (props) => {
       {children}
     </div>
   );
-}
+};
 
 export default inject('auth', 'routing')(observer(Exterior));

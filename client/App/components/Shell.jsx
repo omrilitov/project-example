@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 
-const Shell = (props) => {
+const Shell = props => {
   const {
     children,
     routing,
@@ -10,7 +10,7 @@ const Shell = (props) => {
 
   if (!auth.user && !auth.loggingIn) {
     routing.push('/login');
-    return (<div/>);
+    return (<div />);
   }
 
   return (
@@ -21,6 +21,6 @@ const Shell = (props) => {
       </div>}
     </div>
   );
-}
+};
 
 export default inject('auth', 'routing')(observer(Shell));

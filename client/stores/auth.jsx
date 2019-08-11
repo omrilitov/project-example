@@ -3,13 +3,12 @@ import {observable, action, computed, runInAction, decorate} from "mobx";
 export default class AuthStore {
   user;
   loggingIn;
-  promise;
   rest;
 
   constructor(rest) {
     this.rest = rest;
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token')){
       this.loadUser();
     }
   }

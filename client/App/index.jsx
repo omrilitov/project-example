@@ -6,5 +6,6 @@ const App = ({children}) => {
       {children}
     </div>
   );
-}
+};
+
 export default App;

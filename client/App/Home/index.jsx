@@ -7,5 +7,6 @@ const Home = () => {
       <span>This is home</span>
     </Shell>
   );
-}
+};
+
 export default Home;
