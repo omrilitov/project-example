@@ -45,7 +45,7 @@ module.exports = () => {
   routes(app);
 
   app.use(jsonErrorHandler({
-    log ({err}) {
+    log({err}) {
       logger.error(err);
     }
   }));

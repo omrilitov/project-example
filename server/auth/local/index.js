@@ -14,12 +14,12 @@ router.post('/', (req, res, next) => {
     }
 
     if (info) {
-      info.status = status || 401;
+      info.status = status || 401; // eslint-disable-line no-param-reassign
 
       return next(info);
     }
 
-    res.json({token: signToken(user._id)});
+    return res.json({token: signToken(user._id)});
   })(req, res, next);
 });
 

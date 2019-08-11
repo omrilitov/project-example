@@ -13,7 +13,10 @@ const connect = () => {
     keepAlive: true,
     useNewUrlParser: true,
     bufferMaxEntries: 0
-  }).catch(() => timeoutP(5000, connect));
+  }).catch(async () => {
+    await timeoutP(5000);
+    return connect();
+  });
 };
 
 module.exports = () => {
