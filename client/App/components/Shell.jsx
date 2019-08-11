@@ -14,11 +14,9 @@ const Shell = props => {
   }
 
   return (
-    <div>
+    <div className="stretch">
       {auth.loggingIn && (<span>Logging in</span>)}
-      {auth.user && <div style={{backgroundColor: 'yellow'}}>
-        {children}
-      </div>}
+      {auth.user && children}
     </div>
   );
 };

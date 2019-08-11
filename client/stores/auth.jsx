@@ -1,8 +1,8 @@
-import {observable, action, computed, runInAction, decorate} from "mobx";
+import {observable, action, computed, runInAction} from "mobx";
 
 export default class AuthStore {
-  user;
-  loggingIn;
+  @observable user;
+  @observable loggingIn;
   rest;
 
   constructor(rest) {
@@ -50,7 +50,3 @@ export default class AuthStore {
     }
   }
 }
-
-decorate(AuthStore, {
-  user: observable
-});

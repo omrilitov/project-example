@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 import {syncHistoryWithStore} from 'mobx-react-router';
 import Root from './components/Root';
 import {createStore} from './stores';
+import './main.css';
 
 const browserHistory = createBrowserHistory();
 const store = createStore(window.__data);

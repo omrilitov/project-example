@@ -14,7 +14,7 @@ const Exterior = props => {
   }
 
   return (
-    <div style={{backgroundColor: 'grey'}}>
+    <div className="stretch">
       {children}
     </div>
   );
