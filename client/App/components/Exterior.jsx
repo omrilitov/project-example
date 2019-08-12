@@ -1,17 +1,10 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {observer} from 'mobx-react';
 
 const Exterior = props => {
   const {
-    children,
-    routing,
-    auth
+    children
   } = props;
-
-  if (auth.user || auth.loggingIn) {
-    routing.push('/');
-    return (<div />);
-  }
 
   return (
     <div className="stretch">
@@ -20,4 +13,4 @@ const Exterior = props => {
   );
 };
 
-export default inject('auth', 'routing')(observer(Exterior));
+export default (observer(Exterior));

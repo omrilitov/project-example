@@ -5,7 +5,8 @@ import Exterior from '../components/Exterior';
 const Login = props => {
   const {
     auth: {
-      localLogin
+      localLogin,
+      error
     }
   } = props;
 
@@ -14,6 +15,7 @@ const Login = props => {
   return (
     <Exterior>
       <span>This is a login page</span>
+      {error && <span>{JSON.stringify(error)}</span>}
       <br />
       <button type="button" onClick={login}>login</button>
     </Exterior>
