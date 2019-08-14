@@ -1,9 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default class RestStore {
-  auth;
-  client;
-
   constructor() {
     this.auth = axios.create({
       baseURL: '/auth',
@@ -13,9 +10,9 @@ export default class RestStore {
     this.client = axios.create({
       baseURL: '/api',
       responseType: 'json'
-    })
+    });
 
-    this.client.interceptors.request.use(function (config) {
+    this.client.interceptors.request.use(config => {
       const token = localStorage.getItem('token');
 
       if (token) {
@@ -23,8 +20,6 @@ export default class RestStore {
       }
 
       return config;
-    }, function (error) {
-      return Promise.reject(error);
-    });
+    }, error => Promise.reject(error));
   }
 }

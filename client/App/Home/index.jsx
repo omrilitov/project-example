@@ -51,14 +51,14 @@ const Home = props => {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   return (
     <Shell>
       <Box display="flex" flexGrow={1} flexDirection="column">
         <Typography variant="h4">Welcome to Project Example</Typography>
         <LoadingSpinner isLoading={isLoading}>
-          <TodoList onItemRemove={removeTodo} onItemCheck={checkTodo} items={items} />
+          <TodoList items={items} onItemRemove={removeTodo} onItemCheck={checkTodo} />
         </LoadingSpinner>
         <button type="button" onClick={logout}>logout</button>
       </Box>

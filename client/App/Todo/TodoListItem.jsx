@@ -6,7 +6,7 @@ import {
   Checkbox,
   IconButton,
   ListItemText,
-  ListItemSecondaryAction,
+  ListItemSecondaryAction
 } from '@material-ui/core';
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined';
 
@@ -22,9 +22,9 @@ const TodoListItem = props => {
   return (
     <ListItem divider={divider}>
       <Checkbox
-        onClick={onCheckBoxToggle}
-        checked={checked}
         disableRipple
+        checked={checked}
+        onClick={onCheckBoxToggle}
       />
       <ListItemText primary={text} />
       <ListItemSecondaryAction>

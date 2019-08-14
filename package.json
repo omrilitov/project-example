@@ -4,12 +4,12 @@
   "description": "",
   "main": "server/app.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --ext=js,jsx .",
     "test": "run-s lint",
     "dev": "run-p dev-*",
     "seed": "node server/seed.js | pino-pretty",
     "dev-server": "nodemon --watch server server/app.js | pino-pretty",
-    "dev-client": "webpack-dev-server --open",
+    "dev-client": "export NODE_ENV=development && webpack-dev-server --open",
     "build-client": "webpack --mode=production --env=production"
   },
   "author": "",
@@ -18,23 +18,19 @@
   "engines": {
     "node": ">=8"
   },
+  "eslintIgnore": [
+    "dist/"
+  ],
   "eslintConfig": {
-    "extends": "airbnb",
+    "extends": "xo",
     "rules": {
-      "arrow-body-style": "off",
-      "object-curly-spacing": [
-        "error",
-        "never"
-      ],
-      "comma-dangle": [
-        "error",
-        "never"
-      ],
-      "arrow-parens": [
-        "error",
-        "as-needed"
-      ],
-      "no-underscore-dangle": "off"
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ]
     }
   },
   "dependencies": {
@@ -62,24 +58,19 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
     "@hot-loader/react-dom": "^16.8.6",
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
     "axios": "^0.19.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-react-app": "^9.0.1",
     "css-loader": "^3.2.0",
     "eslint": "^6.1.0",
-    "eslint-config-airbnb": "^18.0.0",
+    "eslint-config-xo": "^0.26.0",
+    "eslint-config-xo-react": "^0.20.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.2.0",

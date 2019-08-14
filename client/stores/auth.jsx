@@ -1,27 +1,24 @@
-import {observable, action, runInAction} from "mobx";
+import {observable, action, runInAction, decorate} from 'mobx';
 
 export default class AuthStore {
-  @observable user;
-  @observable inProgress;
-  @observable error;
-  rest;
+  user = null;
+  inProgress = false;
+  error = null;
 
   constructor(rest) {
     this.rest = rest;
 
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       this.loadUser();
     }
   }
 
-  @action.bound
   logout() {
     localStorage.removeItem('token');
     this.inProgress = false;
     this.user = null;
   }
 
-  @action.bound
   async localLogin({email, password}) {
     try {
       this.inProgress = true;
@@ -63,3 +60,11 @@ export default class AuthStore {
     }
   }
 }
+
+decorate(AuthStore, {
+  user: observable,
+  inProgress: observable,
+  error: observable,
+  logout: action.bound,
+  localLogin: action.bound
+});

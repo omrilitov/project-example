@@ -18,7 +18,7 @@ exports.authenticate = () => {
       throw createError(401);
     }
 
-    req.user = user;
+    req.user = user; // eslint-disable-line require-atomic-updates
   }];
 };
 

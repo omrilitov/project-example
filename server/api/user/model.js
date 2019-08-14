@@ -28,12 +28,12 @@ UserSchema
 
 UserSchema
   .virtual('password')
-  .set(function setPassword(password) {
+  .set(function (password) {
     this._password = password;
   });
 
 UserSchema
-  .pre('save', async function preSavePassword() {
+  .pre('save', async function () {
     if (this._password) {
       await this.setPassword(this._password);
     }
