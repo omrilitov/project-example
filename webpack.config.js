@@ -78,7 +78,8 @@ module.exports = env => {
           target: `http://localhost:${process.env.PORT}`
         },
         '/ws': {
-          target: `http://localhost:${process.env.PORT}`
+          target: `http://localhost:${process.env.PORT}`,
+          ws: true
         }
       }
     }

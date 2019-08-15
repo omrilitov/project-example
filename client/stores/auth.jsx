@@ -5,12 +5,18 @@ export default class AuthStore {
   inProgress = false;
   error = null;
 
-  constructor(rest) {
+  constructor(rest, socket) {
     this.rest = rest;
+    this.socket = socket;
 
     if (localStorage.getItem('token')) {
-      this.loadUser();
+      this.postLogin();
     }
+  }
+
+  postLogin() {
+    this.socket.login(localStorage.getItem('token'));
+    return this.loadUser();
   }
 
   logout() {
@@ -30,7 +36,7 @@ export default class AuthStore {
 
       localStorage.setItem('token', data.token);
 
-      return this.loadUser();
+      return this.postLogin();
     } catch (e) {
       runInAction(() => {
         if (e.response && e.response.data && e.response.data.message) {
