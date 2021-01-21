@@ -55,7 +55,7 @@
     "passport-local-mongoose": "^5.0.1",
     "pino": "^5.13.2",
     "pino-context": "^0.1.2",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "socketio-jwt": "^4.5.0",
     "uuid": "^3.3.2"
   },
